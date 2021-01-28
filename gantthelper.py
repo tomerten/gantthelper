@@ -61,6 +61,10 @@ class GanttDefinition (object):
         for tasks in self._groups.values():
             names |= set([x.assigned_to for x in tasks if x.assigned_to is not None])
         return sorted(names)
+    
+    def get_week_start(self):
+        start = self.get_start()
+        return start.isocalendar()[1]
 
 def _iso_date_list(*args):
     return map(lambda x: x.strftime("%Y-%m-%d"), args)
@@ -75,6 +79,16 @@ def generate_tex_preamble(gantt, colors=None):
 \\usepackage{pgfgantt}
 \\usetikzlibrary{positioning}
 \\usetikzlibrary{backgrounds}
+\\newcounter{myWeekNum}
+\\stepcounter{myWeekNum}
+%
+\\newcommand{\myWeek}{\\themyWeekNum
+    \\stepcounter{myWeekNum}
+    \\ifnum\\themyWeekNum=53
+         \\setcounter{myWeekNum}{1}
+    \\else\\fi
+}
+
 \\tikzstyle{unassigned}=[] \
 """)
     
@@ -86,10 +100,13 @@ def generate_tex_preamble(gantt, colors=None):
 def generate_tex_gantt(gantt):
     start_date = gantt.get_start()
     end_date   = gantt.get_end()
+    week       = gantt.get_week_start()
     
     key = {v: i for i, v in enumerate(gantt.get_names())}
-    
+  
     print("""
+    \\setcounter{myWeekNum}{%s}
+    \\ganttset{calendar week text={\myWeek{}}}
     \\begin{ganttchart}[
         x unit=0.6125cm,
     	y unit chart=0.5cm,
@@ -98,8 +115,8 @@ def generate_tex_gantt(gantt):
     	time slot format=isodate
     ]{%s}{%s}
 
-    \gantttitlecalendar{month=name, day}
-    """ % tuple(_iso_date_list(start_date, end_date)))
+    \gantttitlecalendar{year, month=name, week}
+    """ % tuple((str(week),) + tuple(_iso_date_list(start_date, end_date))))
     
     for group, start, end, tasks in gantt.get_groups():
     

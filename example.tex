@@ -3,6 +3,16 @@
 \usepackage{pgfgantt}
 \usetikzlibrary{positioning}
 \usetikzlibrary{backgrounds}
+\newcounter{myWeekNum}
+\stepcounter{myWeekNum}
+%
+\newcommand{\myWeek}{\themyWeekNum
+    \stepcounter{myWeekNum}
+    \ifnum\themyWeekNum=53
+         \setcounter{myWeekNum}{1}
+    \else\fi
+}
+
 \tikzstyle{unassigned}=[] 
 \tikzstyle{name_0}=[fill=JungleGreen]
 \tikzstyle{name_1}=[fill=RedOrange]
@@ -11,117 +21,119 @@
 \begin{document}
 
 
+    \setcounter{myWeekNum}{24}
+    \ganttset{calendar week text={\myWeek{}}}
     \begin{ganttchart}[
         x unit=0.6125cm,
     	y unit chart=0.5cm,
     	hgrid=true,
     	vgrid=true,
     	time slot format=isodate
-    ]{2016-06-20}{2016-08-12}
+    ]{2021-06-20}{2021-08-12}
 
-    \gantttitlecalendar{month=name, day}
+    \gantttitlecalendar{year, month=name, week}
     
 
         \\\ganttgroup{Task Group 1}
-        {2016-06-20}{2016-06-30}
+        {2021-06-20}{2021-06-30}
         
 
             \\\ganttbar[bar/.append style=name_0]
             {Task 1}
-            {2016-06-20}{2016-06-26}
+            {2021-06-20}{2021-06-26}
             
 
             \\\ganttbar[bar/.append style=name_1]
             {Task 3}
-            {2016-06-20}{2016-06-27}
+            {2021-06-20}{2021-06-27}
             
 
             \\\ganttbar[bar/.append style=name_0]
             {Task 2}
-            {2016-06-27}{2016-06-30}
+            {2021-06-27}{2021-06-30}
             
 
         \\
         
 
         \\\ganttgroup{Task Group 2}
-        {2016-06-28}{2016-07-15}
+        {2021-06-28}{2021-07-15}
         
 
             \\\ganttbar[bar/.append style=name_1]
             {Task 4}
-            {2016-06-28}{2016-07-11}
+            {2021-06-28}{2021-07-11}
             
 
             \\\ganttbar[bar/.append style=name_0]
             {Task 5}
-            {2016-07-01}{2016-07-15}
+            {2021-07-01}{2021-07-15}
             
 
         \\
         
 
         \\\ganttgroup{Task Group 3}
-        {2016-06-30}{2016-07-11}
+        {2021-06-30}{2021-07-11}
         
 
             \\\ganttbar[bar/.append style=name_2]
             {Task 6}
-            {2016-06-30}{2016-07-05}
+            {2021-06-30}{2021-07-05}
             
 
             \\\ganttbar[bar/.append style=unassigned]
             {Task 7}
-            {2016-06-30}{2016-07-11}
+            {2021-06-30}{2021-07-11}
             
 
         \\
         
 
         \\\ganttgroup{Task Group 4}
-        {2016-07-06}{2016-07-25}
+        {2021-07-06}{2021-07-25}
         
 
             \\\ganttbar[bar/.append style=name_2]
             {Task 8}
-            {2016-07-06}{2016-07-13}
+            {2021-07-06}{2021-07-13}
             
 
             \\\ganttbar[bar/.append style=unassigned]
             {Task 9}
-            {2016-07-12}{2016-07-25}
+            {2021-07-12}{2021-07-25}
             
 
             \\\ganttbar[bar/.append style=name_2]
             {Task 10}
-            {2016-07-14}{2016-07-25}
+            {2021-07-14}{2021-07-25}
             
 
             \\\ganttbar[bar/.append style=name_0]
             {Task 11}
-            {2016-07-16}{2016-07-25}
+            {2021-07-16}{2021-07-25}
             
 
         \\
         
 
         \\\ganttgroup{Task Group 5}
-        {2016-07-16}{2016-08-12}
+        {2021-07-16}{2021-08-12}
         
 
             \\\ganttbar[bar/.append style=name_1]
             {Task 12}
-            {2016-07-16}{2016-07-25}
+            {2021-07-16}{2021-07-25}
             
 
             \\\ganttbar[bar/.append style=name_2]
             {Task 13}
-            {2016-07-26}{2016-08-04}
+            {2021-07-26}{2021-08-04}
             
 
             \\\ganttbar[bar/.append style=unassigned]
             {Task 14}
-            {2016-08-05}{2016-08-12}
+            {2021-08-05}{2021-08-12}
             
 
         \\
