@@ -3,6 +3,9 @@ Python tool wrapping around the pgfgantt LaTeX library to make drawing Gantt cha
 
 Requires the pgfgantt LaTeX library, and the dateutil Python library.
 
+Change the dictionary entries  in the example.py file to create your
+own chart.
+
 ## Example usage:
 
     # Generate tex source
